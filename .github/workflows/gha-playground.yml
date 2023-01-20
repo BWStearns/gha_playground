@@ -1,5 +1,5 @@
 name: GHA Caching Test
-run-name: ${{ github.actor }} is building and testing some GHA Caching 🐿️
+run-name: ${{ github.actor }} is building and testing some GHA Caching 🐿️ [${{ github.event.head_commit.message }}]
 
 on:
   pull_request:
@@ -43,14 +43,12 @@ jobs:
         run: sudo apt-get install tree
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Check for cached files
-        run: tree .
+      - name: Check for cached files (they shouldn't be there)
+        run: tree
       - name: Restore cached files
         uses: actions/cache@v2
         with:
           path: ./test
           key: ${{ runner.os }}-test-files
       - name: Show files
-        run: tree ./test
-      - name: Show whole repo
         run: tree
