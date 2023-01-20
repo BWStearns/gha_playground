@@ -54,7 +54,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./test
-          key: ${{ runner.os }}-test-files
+          key: ${{ runner.os }}-test-files-2
 
   RestoreFiles:
     name: Restore some files 🐿️
@@ -71,6 +71,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./test
-          key: ${{ runner.os }}-test-files
+          # key: ${{ runner.os }}-test-files
+          restore-keys: ${{ runner.os }}
       - name: Show files
         run: tree
