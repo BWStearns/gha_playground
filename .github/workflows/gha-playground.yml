@@ -59,7 +59,7 @@ jobs:
   RestoreFiles:
     name: Restore some files 🐿️
     runs-on: ubuntu-latest
-    needs: step1
+    needs: [ StashFiles, StashMoreFiles ]
     steps:
       - name: Install tree
         run: sudo apt-get install tree
