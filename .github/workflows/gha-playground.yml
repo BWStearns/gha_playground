@@ -13,7 +13,7 @@ env:
 
 jobs:
   step1:
-    name: Cache some files
+    name: Cache some files 🌰
     runs-on: ubuntu-latest
     steps:
       - name: Install tree
@@ -35,7 +35,7 @@ jobs:
           key: ${{ runner.os }}-test-files
 
   step2:
-    name: Restore some files
+    name: Restore some files 🐿️
     runs-on: ubuntu-latest
     needs: step1
     steps:
