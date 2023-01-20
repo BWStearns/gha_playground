@@ -44,11 +44,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Check for cached files
-        run: tree . -a -I .git*
+        run: tree .
       - name: Restore cached files
         uses: actions/cache@v2
         with:
           path: .
           key: ${{ runner.os }}-test-files
       - name: Show files
-        run: tree . -a -I .git*
+        run: tree .
