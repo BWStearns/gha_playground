@@ -43,6 +43,8 @@ jobs:
         run: sudo apt-get install tree
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Check for cached files
+        run: ls .
       - name: Restore cached files
         uses: actions/cache@v2
         with:
