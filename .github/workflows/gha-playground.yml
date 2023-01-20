@@ -72,6 +72,7 @@ jobs:
         with:
           path: ./test/*
           key: ${{ runner.os }}-test-files
+      - name: Restore other cached files
         with:
           path: ./test/*
           key: ${{ runner.os }}-test-files2
