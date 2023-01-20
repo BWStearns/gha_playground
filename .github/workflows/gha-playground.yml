@@ -1,5 +1,5 @@
 name: GHA Caching Test
-run-name: ${{ github.actor }} is building and testing some GHA Caching 🐿️
+run-name: ${{ github.actor }} is building and testing some GHA Caching 🐿️ ${{ github.event.head_commit.message }}
 
 on:
   pull_request:
@@ -12,8 +12,8 @@ env:
   FOO: bar
 
 jobs:
-  step1:
-    name: Cache some files
+  StashFiles:
+    name: Cache some files 🌰
     runs-on: ubuntu-latest
     steps:
       - name: Install tree
@@ -34,19 +34,48 @@ jobs:
           path: ./test
           key: ${{ runner.os }}-test-files
 
-  step2:
-    name: Restore some files
+  StashMoreFiles:
+    name: Cache some files 🌰
     runs-on: ubuntu-latest
-    needs: step1
     steps:
       - name: Install tree
         run: sudo apt-get install tree
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Create some files in a directory
+        run: |
+          mkdir -p ./test
+          echo foobar > ./test/test3.txt
+          echo barbaz > ./test/test4.txt
+          echo bazfoo > ./test/test5.txt
+
+      - name: Cache some files
+        uses: actions/cache@v2
+        with:
+          path: ./test
+          key: ${{ runner.os }}-test-files-2
+
+  RestoreFiles:
+    name: Restore some files 🐿️
+    runs-on: ubuntu-latest
+    needs: [ StashFiles, StashMoreFiles ]
+    steps:
+      - name: Install tree
+        run: sudo apt-get install tree
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Check for cached files (they shouldn't be there)
+        run: tree
       - name: Restore cached files
         uses: actions/cache@v2
         with:
           path: ./test
           key: ${{ runner.os }}-test-files
+      - name: Restore other cached files
+        uses: actions/cache@v2
+        with:
+          path: ./test
+          key: ${{ runner.os }}-test-files-2
       - name: Show files
-        run: tree ./test
+        run: tree
