@@ -67,12 +67,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Check for cached files (they shouldn't be there)
         run: tree
-      # - name: Restore cached files
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ./test/*
-      #     key: ${{ runner.os }}-test-files
+      - name: Restore cached files
+        uses: actions/cache@v2
+        with:
+          path: ./test/*
+          key: ${{ runner.os }}-test-files
       - name: Restore other cached files
+        uses: actions/cache@v2
         with:
           path: ./test/*
           key: ${{ runner.os }}-test-files2
